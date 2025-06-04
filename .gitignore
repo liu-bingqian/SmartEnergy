@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Environment
+.env
+.venv/
+env/
+venv/
+*.env
+*.log
+
+# VSCode / IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Model and training files
+*.h5
+*.hdf5
+*.pth
+*.pt
+*.ckpt
+*.pb
+*.tflite
+
+# DRL logs and results
+runs/
+results/
+checkpoints/
+tensorboard/
+*.monitor.csv
+*.npy
+
+# Surrogate model data
+data/
+generated_data/
+*.pkl
+*.joblib
+
+# Docs / Output
+docs/_build/
+*.pdf
+*.aux
+*.out
+*.toc
+
+# Misc
+*.bak
+*.tmp
+

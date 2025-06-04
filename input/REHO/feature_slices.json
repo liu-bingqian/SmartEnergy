@@ -1,0 +1,22 @@
+{
+  "Building": [
+    0,
+    31
+  ],
+  "Temperature": [
+    31,
+    273
+  ],
+  "Irradiation": [
+    273,
+    515
+  ],
+  "TypicalDay": [
+    515,
+    525
+  ],
+  "MarketData": [
+    525,
+    528
+  ]
+}
