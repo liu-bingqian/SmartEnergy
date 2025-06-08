@@ -24,11 +24,4 @@ y_valid = y[TrainNumber:]
 augmented_number = 3*X.shape[0]
 X, y = augment_typical_days(X, y, Parameter_Dict, augmented_number)
 
-# DNN structure
-Model_Config = {
-'L2_regularization' : 1e-4,
-'activation': ['relu', 'relu', 'relu'],
-'hidden_layers' : [256, 128, 128]
-}
-
-model = SequentialNeuralNetwork(X_train, y_train, X_valid, y_valid, Model_Config=Model_Config,verbose=1, batch_size=512)
+validation_results,  regressor_list = non_DNN_regressor(X_train, y_train, X_valid, y_valid)

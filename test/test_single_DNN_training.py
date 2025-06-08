@@ -1,5 +1,6 @@
 from notebooks.utils import *
-from energy_ml.models.other_models import non_DNN_regressor
+
+from energy_ml.models.neural_network import SequentialNeuralNetwork
 from test_data_reading import retrieve_data
 
 X_path = '../input/REHO/REHO_train_X.csv'
@@ -20,8 +21,8 @@ y_train = y[:TrainNumber]
 y_valid = y[TrainNumber:]
 
 # Data augmentation
-augmented_number = 3*X.shape[0]
-X, y = augment_typical_days(X, y, Parameter_Dict, augmented_number)
+augmented_number = 3*X_train .shape[0]
+X_train , y_train  = augment_typical_days(X_train , y_train , Parameter_Dict, augmented_number)
 
 # DNN structure
 Model_Config = {
@@ -30,4 +31,6 @@ Model_Config = {
 'hidden_layers' : [256, 128, 128]
 }
 
-validation_results,  regressor_list = non_DNN_regressor(X_train, y_train, X_valid, y_valid)
+
+
+model = SequentialNeuralNetwork(X_train, y_train, X_valid, y_valid, Model_Config=Model_Config,verbose=1, batch_size=512)

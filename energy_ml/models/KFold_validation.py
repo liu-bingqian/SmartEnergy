@@ -3,7 +3,7 @@ from energy_ml.models.neural_network import SequentialNeuralNetwork
 import numpy as np
 from energy_ml.models.other_models import non_DNN_regressor
 
-def KFold_validation(X_train, y_train, model_list = []):
+def KFold_validation_DNN(X_train, y_train, model_list = []):
 
     if len(model_list) == 0:
         print('Test model list is empty')
@@ -16,7 +16,6 @@ def KFold_validation(X_train, y_train, model_list = []):
 
     for Model_Config in model_list:
         fold_mae = []
-        fold_mape = []
         fold_mse = []
         print('Current Model Config:', Model_Config)
         i=1
@@ -30,16 +29,14 @@ def KFold_validation(X_train, y_train, model_list = []):
             scores = model.evaluate(X_valid, y_valid, verbose=0)
             # 记录结果
             fold_mae.append(scores[1])  # MAE
-            fold_mse.append(scores[2])  # MAPE
-            fold_mape.append(scores[3])  # MAPE
+            fold_mse.append(scores[2])  # MSE
 
-            print(f"Fold MAE: {scores[1]:.4f}, Fold MSE: {scores[2]:.4f}, Fold MAPE: {scores[3]:.2f}%")
+            print(f"Fold MAE: {scores[1]:.4f}, Fold MSE: {scores[2]:.4f}")
 
         Model_Label = Model_Config['name'] + str(Model_Config['hidden_layers'])
-        Results_Dict[Model_Label] = {'MAE' : np.mean(fold_mae), 'MSE' : np.mean(fold_mse), 'MAPE' : np.mean(fold_mape)}
+        Results_Dict[Model_Label] = {'MAE' : np.mean(fold_mae), 'MSE' : np.mean(fold_mse)}
         print(f"Average MAE: {np.mean(fold_mae):.4f}, Std MAE: {np.std(fold_mae):.4f}")
         print(f"Average MSE: {np.mean(fold_mse):.4f}, Std MSE: {np.std(fold_mse):.4f}")
-        print(f"Average MAPE: {np.mean(fold_mape):.2f}%, Std MAPE: {np.std(fold_mape):.2f}%")
     return Results_Dict
 
 def KFold_Validation_non_DNN(X_train, y_train, model_list = []):
@@ -64,7 +61,7 @@ def KFold_Validation_non_DNN(X_train, y_train, model_list = []):
             # 划分训练集和验证集
             X_train_kfold, X_valid = X_train[train_index], X_train[valid_index]
             y_train_kfold, y_valid = y_train[train_index], y_train[valid_index]
-            ErrorResultsDict, TrainedModelDict = non_DL_regressor(X_train_kfold, y_train_kfold, X_valid, y_valid, regressor_list = [Model_Config])
+            ErrorResultsDict, TrainedModelDict = non_DNN_regressor(X_train_kfold, y_train_kfold, X_valid, y_valid, regressor_list = [Model_Config])
             # 记录结果
             fold_mae.append(ErrorResultsDict[Model_Config]['valid_MAE'])  # MAE
             fold_mse.append(ErrorResultsDict[Model_Config]['valid_MAPE'])  # MAPE
